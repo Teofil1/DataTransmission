@@ -33,7 +33,8 @@ public class Controller {
 
             }
             else {
-                int [] encodeData = Parity.encode(stringToIntArray(inputDataArea.getText()));
+                Parity parity = new Parity(stringToIntArray(inputDataArea.getText()));
+                int [] encodeData = parity.encode();
                 encodeDataArea.setText(intArrayToString(encodeData));
             }
         }

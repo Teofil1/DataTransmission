@@ -2,8 +2,25 @@ package sample;
 
 public class Parity {
 
+    private int inputData[];
+    private int indexesOfCorrectBit[];
+    private int indexesOfWrongBit[];
+    private int indexesOfUncertainBit[];
+    private int indexesOfCorrectControlBit[];
+    private int indexesOfWrongControlBit[];
+    private int indexesOfUncertainControlBit[];
 
-    static int[] encode(int inputData[])
+    public Parity(int[] inputData) {
+        this.inputData = inputData;
+        indexesOfCorrectBit = new int[inputData.length];
+        indexesOfWrongBit = new int[inputData.length];
+        indexesOfUncertainBit = new int[inputData.length];
+        indexesOfCorrectControlBit = new int[inputData.length/8];
+        indexesOfWrongControlBit = new int[inputData.length/8];
+        indexesOfUncertainControlBit = new int[inputData.length/8];
+    }
+
+    public int[] encode()
     {
         int lengthInputData = inputData.length;
         int [] revereseInputData = reverseIntArray(inputData);
@@ -23,7 +40,14 @@ public class Parity {
         return reverseIntArray(encodedData);
     }
 
-    private static int[] reverseIntArray(int array[]){
+    public int[] decode()
+    {
+        return null;
+    }
+
+
+
+    private int[] reverseIntArray(int array[]){
         for(int i = 0; i < array.length / 2; i++)
         {
             int temp = array[i];
