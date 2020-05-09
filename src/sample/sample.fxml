@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <TextArea fx:id="inputDataArea" prefHeight="62.0" prefWidth="600.0">
+         <VBox.margin>
+            <Insets left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </TextArea>
+      <HBox alignment="CENTER">
+         <ToggleButton fx:id="toggleButtonParity" mnemonicParsing="false" selected="true" text="Kontrola parzystości">
+            <toggleGroup>
+               <ToggleGroup fx:id="toggleGroup" />
+            </toggleGroup></ToggleButton>
+         <ToggleButton fx:id="toggleButtonHamming" mnemonicParsing="false" text="Kodowanie Hamminga" toggleGroup="$toggleGroup" />
+         <ToggleButton fx:id="toggleButtonCRC" text="CRC" toggleGroup="$toggleGroup" />
+         <Button mnemonicParsing="false" onAction="#showEncodedData" text="Koduj">
+            <HBox.margin>
+               <Insets left="20.0" />
+            </HBox.margin>
+         </Button>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <TextArea fx:id="encodeDataArea" prefHeight="46.0" prefWidth="600.0" />
+   </children>
+</VBox>
