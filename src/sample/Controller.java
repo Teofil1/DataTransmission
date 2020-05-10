@@ -60,7 +60,7 @@ public class Controller{
                 sentEncodeDataArea.setText(intArrayToString(encodeData));
                 receivedEncodeDataArea.setText(intArrayToString(encodeData));
 
-                SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,inputDataArea.getText().length()+1,0);
+                SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,sentEncodeDataArea.getText().length(),0);
                 disruptSpinner.setValueFactory(spv);
                 disruptSpinner.setDisable(false);
                 buttonDecode.setDisable(false);
