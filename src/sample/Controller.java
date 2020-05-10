@@ -2,17 +2,25 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 
-public class Controller {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Controller{
 
     @FXML
     TextArea inputDataArea;
 
     @FXML
-    TextArea encodeDataArea;
+    TextArea sentEncodeDataArea;
+
+    @FXML
+    TextArea receivedEncodeDataArea;
 
     @FXML
     ToggleButton toggleButtonParity;
@@ -21,7 +29,21 @@ public class Controller {
     ToggleButton toggleButtonCRC;
 
     @FXML
+    Button buttonDisrupt;
+
+    @FXML
+    Button buttonDecode;
+
+    @FXML
     ToggleButton toggleButtonHamming;
+
+    @FXML
+    Spinner<Integer> disruptSpinner;
+
+   /* @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }*/
 
     @FXML
     public void showEncodedData(ActionEvent event) {
@@ -35,9 +57,22 @@ public class Controller {
             else {
                 Parity parity = new Parity(stringToIntArray(inputDataArea.getText()));
                 int [] encodeData = parity.encode();
-                encodeDataArea.setText(intArrayToString(encodeData));
+                sentEncodeDataArea.setText(intArrayToString(encodeData));
+                receivedEncodeDataArea.setText(intArrayToString(encodeData));
+
+                SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,inputDataArea.getText().length()+1,0);
+                disruptSpinner.setValueFactory(spv);
+                disruptSpinner.setDisable(false);
+                buttonDecode.setDisable(false);
+                buttonDisrupt.setDisable(false);
             }
         }
+    }
+
+    @FXML
+    public void showDisruptData(ActionEvent event) {
+       int [] disruptedData = disruptData(stringToIntArray(sentEncodeDataArea.getText()), disruptSpinner.getValue());
+       receivedEncodeDataArea.setText(intArrayToString(disruptedData));
     }
 
     private int[] stringToIntArray(String text){
@@ -87,7 +122,23 @@ public class Controller {
         alert.showAndWait();
     }
 
+    public int[] disruptData(int[] datas, int numberOfDisraptedBits){
+        int[] disruptedData = Arrays.copyOf(datas, datas.length);
+        Random rand = new Random();
+        List<Integer> listWithAllIndexesOfdata = IntStream.rangeClosed(0, datas.length-1).boxed().collect(Collectors.toList());
+        List<Integer> indexesOfDisraptedBits = new ArrayList<>();
 
+        for (int i=0; i<numberOfDisraptedBits; i++){
+            int indexOfDisruptedBit = rand.nextInt(listWithAllIndexesOfdata.size());
+            indexesOfDisraptedBits.add(listWithAllIndexesOfdata.get(indexOfDisruptedBit));
+            listWithAllIndexesOfdata.remove(indexOfDisruptedBit);
+        }
 
+        for (int i=0; i<indexesOfDisraptedBits.size(); i++){
+            if(disruptedData[indexesOfDisraptedBits.get(i)] == 0) disruptedData[indexesOfDisraptedBits.get(i)] = 1;
+            else disruptedData[indexesOfDisraptedBits.get(i)] = 0;
+        }
+        return disruptedData;
+    }
 
 }

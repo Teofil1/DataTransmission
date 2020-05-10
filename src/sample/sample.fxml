@@ -50,7 +50,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </HBox>
-      <TextArea fx:id="encodeDataArea" prefHeight="62.0" prefWidth="600.0" promptText="Zakodowana wiadomość">
+      <TextArea fx:id="sentEncodeDataArea" prefHeight="62.0" prefWidth="600.0" promptText="Wysłana zakodowana wiadomość">
          <VBox.margin>
             <Insets left="5.0" right="5.0" top="10.0" />
          </VBox.margin></TextArea>
@@ -62,20 +62,20 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="20.0" />
          </VBox.margin>
       </Label>
-      <TextArea prefHeight="62.0" prefWidth="200.0" promptText="Zakodowana wiadomość">
+      <TextArea fx:id="receivedEncodeDataArea" prefHeight="62.0" prefWidth="200.0" promptText="Otrzymana zakodowana wiadomość">
          <VBox.margin>
             <Insets left="5.0" right="5.0" />
          </VBox.margin>
       </TextArea>
       <HBox alignment="TOP_CENTER" prefHeight="14.0" prefWidth="600.0">
          <children>
-            <Spinner prefHeight="26.0" prefWidth="79.0">
+            <Spinner fx:id="disruptSpinner" disable="true" prefHeight="26.0" prefWidth="79.0">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Spinner>
-            <Button mnemonicParsing="false" text="Zakłóć" />
-            <Button mnemonicParsing="false" text="Dekoduj">
+            <Button fx:id="buttonDisrupt" disable="true" mnemonicParsing="false" onAction="#showDisruptData" text="Zakłóć" />
+            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" text="Dekoduj">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>
