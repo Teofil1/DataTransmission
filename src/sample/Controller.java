@@ -101,12 +101,12 @@ public class Controller{
                 if(i == entry.getKey()) {
                     String color= "#000000";
                     switch (entry.getValue()){
-                        case "indexesOfUncertainBit": color = "#FFA500"; break;
-                        case "indexesOfWrongControlBit": color = "#710909"; break;
-                        case "indexesOfCorrectBit": color = "#008000"; break;
-                        case "indexesOfCorrectControlBit": color = "#20A0C7"; break;
-                        case "indexesOfWrongBit": color = "#FF0000"; break;
-                        case "indexesOfUncertainControlBit": color = "#FFFF00"; break;
+                        case "correctDataBit": color = "#008000"; break;
+                        case "wrongDataBit": color = "#FF0000"; break;
+                        case "uncertainDataBit": color = "#FFA500"; break;
+                        case "correctControlBit": color = "#20A0C7"; break;
+                        case "wrongControlBit": color = "#710909"; break;
+                        case "uncertainControlBit": color = "#FFFF00"; break;
                     }
                     Text singleBit = new Text();
                     singleBit.setText(String.valueOf(data.charAt(i)));

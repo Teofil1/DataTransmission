@@ -48,11 +48,11 @@ public class Parity {
                 if(data[i*9+j] == 1) numberOfOne++;
             }
             if (numberOfOne%2 != 0) {
-                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "indexesOfUncertainBit");
-                detectedBits.put(i*9, "indexesOfUncertainControlBit");
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "uncertainDataBit");
+                detectedBits.put(i*9, "uncertainControlBit");
             } else {
-                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "indexesOfCorrectBit");
-                detectedBits.put(i*9, "indexesOfCorrectControlBit");
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "correctDataBit");
+                detectedBits.put(i*9, "correctControlBit");
             }
         }
         return detectedBits;
