@@ -78,7 +78,7 @@
                </HBox.margin>
             </Spinner>
             <Button fx:id="buttonDisrupt" disable="true" mnemonicParsing="false" onAction="#showDisruptData" text="Zakłóć" />
-            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showDataWithDetectedErrorsData" text="Dekoduj">
+            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showDataWithDetectedErrors" text="Dekoduj">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

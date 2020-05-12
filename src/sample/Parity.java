@@ -58,7 +58,6 @@ public class Parity {
         return detectedBits;
     }
 
-
     private int[] reverseIntArray(int array[]){
         for(int i = 0; i < array.length / 2; i++)
         {
@@ -68,32 +67,4 @@ public class Parity {
         }
         return array;
     }
-
-    /*public List<Integer> getIndexesOfCorrectBit() {
-        return indexesOfCorrectBit;
-    }
-
-    public List<Integer> getIndexesOfWrongBit() {
-        return indexesOfWrongBit;
-    }
-
-    public List<Integer> getIndexesOfUncertainBit() {
-        return indexesOfUncertainBit;
-    }
-
-    public List<Integer> getIndexesOfCorrectControlBit() {
-        return indexesOfCorrectControlBit;
-    }
-
-    public List<Integer> getIndexesOfWrongControlBit() {
-        return indexesOfWrongControlBit;
-    }
-
-    public List<Integer> getIndexesOfUncertainControlBit() {
-        return indexesOfUncertainControlBit;
-    }*/
-
-    /*public Map<Integer, String> getDetectedBits() {
-        return detectedBits;
-    }*/
 }

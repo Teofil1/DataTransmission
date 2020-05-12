@@ -80,7 +80,7 @@ public class Controller{
     }
 
     @FXML
-    public void showDataWithDetectedErrorsData(ActionEvent event) {
+    public void showDataWithDetectedErrors(ActionEvent event) {
         if (toggleButtonCRC.isSelected()){
 
         }
