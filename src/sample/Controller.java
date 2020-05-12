@@ -2,18 +2,24 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Controller{
+public class Controller implements Initializable {
 
     @FXML
     TextArea inputDataArea;
+
+    @FXML
+    HBox radioGroupWithKeys;
 
     @FXML
     TextArea sentEncodeDataArea;
@@ -22,10 +28,13 @@ public class Controller{
     TextArea receivedEncodeDataArea;
 
     @FXML
-    TextFlow dataWithDetectedErrorsFlow;
+    TextFlow dataWithDetectedErrorsArea;
 
     @FXML
     ToggleButton toggleButtonParity;
+
+    @FXML
+    ToggleButton toggleButtonHamming;
 
     @FXML
     ToggleButton toggleButtonCRC;
@@ -37,17 +46,20 @@ public class Controller{
     Button buttonDecode;
 
     @FXML
-    ToggleButton toggleButtonHamming;
-
-    @FXML
     Spinner<Integer> disruptSpinner;
 
     Parity parity;
 
-   /* @Override
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        toggleButtonCRC.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+            radioGroupWithKeys.setDisable(!radioGroupWithKeys.isDisable());
+        }));
+        Text text = new Text("Zakodowana wiadomość po korekcji");
+        text.setStyle("-fx-fill: #ababab;-fx-font-weight:normal;");;
+        dataWithDetectedErrorsArea.getChildren().add(text);
+    }
 
-    }*/
 
     @FXML
     public void showEncodedData(ActionEvent event) {
@@ -88,12 +100,13 @@ public class Controller{
 
         }
         else {
-            dataWithDetectedErrorsFlow.getChildren().clear();
+            dataWithDetectedErrorsArea.getChildren().clear();
             Map<Integer, String> detectedBits = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             String detectedData = receivedEncodeDataArea.getText();
             showColoredData(detectedBits, detectedData);
         }
     }
+
 //
     private void showColoredData(Map<Integer, String> detectedBits, String data){
         for(int i=0; i<data.length(); i++){
@@ -111,7 +124,7 @@ public class Controller{
                     Text singleBit = new Text();
                     singleBit.setText(String.valueOf(data.charAt(i)));
                     singleBit.setStyle("-fx-fill: "+ color +";-fx-font-weight:bold;");
-                    dataWithDetectedErrorsFlow.getChildren().add(i, singleBit);
+                    dataWithDetectedErrorsArea.getChildren().add(i, singleBit);
                 }
             }
         }
