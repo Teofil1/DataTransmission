@@ -1,23 +1,15 @@
 package sample;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Parity {
 
     private int inputData[];
-    private int indexesOfCorrectBit[];
-    private int indexesOfWrongBit[];
-    private int indexesOfUncertainBit[];
-    private int indexesOfCorrectControlBit[];
-    private int indexesOfWrongControlBit[];
-    private int indexesOfUncertainControlBit[];
+    private Map<Integer, String> detectedBits = new HashMap<>();
 
     public Parity(int[] inputData) {
         this.inputData = inputData;
-        indexesOfCorrectBit = new int[inputData.length];
-        indexesOfWrongBit = new int[inputData.length];
-        indexesOfUncertainBit = new int[inputData.length];
-        indexesOfCorrectControlBit = new int[inputData.length/8];
-        indexesOfWrongControlBit = new int[inputData.length/8];
-        indexesOfUncertainControlBit = new int[inputData.length/8];
     }
 
     public int[] encode()
@@ -42,7 +34,28 @@ public class Parity {
 
     public int[] decode()
     {
+
         return null;
+    }
+
+    public Map<Integer, String> detectErrors(int [] data){
+        int lenghtEncodedData = data.length;
+        for (int i=0; i<lenghtEncodedData/9; i++)
+        {
+            int numberOfOne = 0;
+            for (int j=0; j<9; j++)
+            {
+                if(data[i*9+j] == 1) numberOfOne++;
+            }
+            if (numberOfOne%2 != 0) {
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "indexesOfUncertainBit");
+                detectedBits.put(i*9, "indexesOfUncertainControlBit");
+            } else {
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "indexesOfCorrectBit");
+                detectedBits.put(i*9, "indexesOfCorrectControlBit");
+            }
+        }
+        return detectedBits;
     }
 
 
@@ -55,4 +68,32 @@ public class Parity {
         }
         return array;
     }
+
+    /*public List<Integer> getIndexesOfCorrectBit() {
+        return indexesOfCorrectBit;
+    }
+
+    public List<Integer> getIndexesOfWrongBit() {
+        return indexesOfWrongBit;
+    }
+
+    public List<Integer> getIndexesOfUncertainBit() {
+        return indexesOfUncertainBit;
+    }
+
+    public List<Integer> getIndexesOfCorrectControlBit() {
+        return indexesOfCorrectControlBit;
+    }
+
+    public List<Integer> getIndexesOfWrongControlBit() {
+        return indexesOfWrongControlBit;
+    }
+
+    public List<Integer> getIndexesOfUncertainControlBit() {
+        return indexesOfUncertainControlBit;
+    }*/
+
+    /*public Map<Integer, String> getDetectedBits() {
+        return detectedBits;
+    }*/
 }

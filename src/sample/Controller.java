@@ -3,11 +3,10 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,6 +20,9 @@ public class Controller{
 
     @FXML
     TextArea receivedEncodeDataArea;
+
+    @FXML
+    TextFlow dataWithDetectedErrorsFlow;
 
     @FXML
     ToggleButton toggleButtonParity;
@@ -40,6 +42,8 @@ public class Controller{
     @FXML
     Spinner<Integer> disruptSpinner;
 
+    Parity parity;
+
    /* @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,7 +59,7 @@ public class Controller{
 
             }
             else {
-                Parity parity = new Parity(stringToIntArray(inputDataArea.getText()));
+                parity = new Parity(stringToIntArray(inputDataArea.getText()));
                 int [] encodeData = parity.encode();
                 sentEncodeDataArea.setText(intArrayToString(encodeData));
                 receivedEncodeDataArea.setText(intArrayToString(encodeData));
@@ -73,6 +77,44 @@ public class Controller{
     public void showDisruptData(ActionEvent event) {
        int [] disruptedData = disruptData(stringToIntArray(sentEncodeDataArea.getText()), disruptSpinner.getValue());
        receivedEncodeDataArea.setText(intArrayToString(disruptedData));
+    }
+
+    @FXML
+    public void showDataWithDetectedErrorsData(ActionEvent event) {
+        if (toggleButtonCRC.isSelected()){
+
+        }
+        else if(toggleButtonHamming.isSelected()){
+
+        }
+        else {
+            dataWithDetectedErrorsFlow.getChildren().clear();
+            Map<Integer, String> detectedBits = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
+            String detectedData = receivedEncodeDataArea.getText();
+            showColoredData(detectedBits, detectedData);
+        }
+    }
+
+    private void showColoredData(Map<Integer, String> detectedBits, String data){
+        for(int i=0; i<data.length(); i++){
+            for (Map.Entry<Integer, String> entry : detectedBits.entrySet()) {
+                if(i == entry.getKey()) {
+                    String color= "#000000";
+                    switch (entry.getValue()){
+                        case "indexesOfUncertainBit": color = "#FFA500"; break;
+                        case "indexesOfWrongControlBit": color = "#710909"; break;
+                        case "indexesOfCorrectBit": color = "#008000"; break;
+                        case "indexesOfCorrectControlBit": color = "#20A0C7"; break;
+                        case "indexesOfWrongBit": color = "#FF0000"; break;
+                        case "indexesOfUncertainControlBit": color = "#FFFF00"; break;
+                    }
+                    Text singleBit = new Text();
+                    singleBit.setText(String.valueOf(data.charAt(i)));
+                    singleBit.setStyle("-fx-fill: "+ color +";-fx-font-weight:bold;");
+                    dataWithDetectedErrorsFlow.getChildren().add(i, singleBit);
+                }
+            }
+        }
     }
 
     private int[] stringToIntArray(String text){
