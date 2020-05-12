@@ -94,7 +94,7 @@ public class Controller{
             showColoredData(detectedBits, detectedData);
         }
     }
-
+//
     private void showColoredData(Map<Integer, String> detectedBits, String data){
         for(int i=0; i<data.length(); i++){
             for (Map.Entry<Integer, String> entry : detectedBits.entrySet()) {
