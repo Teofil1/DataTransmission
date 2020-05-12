@@ -3,6 +3,7 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -29,6 +30,9 @@ public class Controller implements Initializable {
 
     @FXML
     TextFlow dataWithDetectedErrorsArea;
+
+    @FXML
+    TextArea receivedDataArea;
 
     @FXML
     ToggleButton toggleButtonParity;
@@ -92,7 +96,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void showDataWithDetectedErrors(ActionEvent event) {
+    public void showResults(ActionEvent event) {
         if (toggleButtonCRC.isSelected()){
 
         }
@@ -102,14 +106,24 @@ public class Controller implements Initializable {
         else {
             dataWithDetectedErrorsArea.getChildren().clear();
             Map<Integer, String> detectedBits = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
-            String detectedData = receivedEncodeDataArea.getText();
-            showColoredData(detectedBits, detectedData);
+            showColoredData(detectedBits);
+            StringBuilder sb = new StringBuilder();
+            for (Node node : dataWithDetectedErrorsArea.getChildren())
+                if (node instanceof Text)
+                    sb.append(((Text) node).getText());
+
+            int [] decodedData = parity.decode(stringToIntArray(sb.toString()));
+            receivedDataArea.setText(intArrayToString(decodedData));
         }
     }
 
-//
-    private void showColoredData(Map<Integer, String> detectedBits, String data){
-        for(int i=0; i<data.length(); i++){
+    private void showStatistics(){
+
+    }
+
+    private void showColoredData(Map<Integer, String> detectedBits){
+        String detectedData = receivedEncodeDataArea.getText();
+        for(int i=0; i<detectedData.length(); i++){
             for (Map.Entry<Integer, String> entry : detectedBits.entrySet()) {
                 if(i == entry.getKey()) {
                     String color= "#000000";
@@ -122,7 +136,7 @@ public class Controller implements Initializable {
                         case "uncertainControlBit": color = "#FFFF00"; break;
                     }
                     Text singleBit = new Text();
-                    singleBit.setText(String.valueOf(data.charAt(i)));
+                    singleBit.setText(String.valueOf(detectedData.charAt(i)));
                     singleBit.setStyle("-fx-fill: "+ color +";-fx-font-weight:bold;");
                     dataWithDetectedErrorsArea.getChildren().add(i, singleBit);
                 }

@@ -7,6 +7,7 @@ public class Parity {
 
     private int inputData[];
     private Map<Integer, String> detectedBits = new HashMap<>();
+    private int errers = 0;
 
     public Parity(int[] inputData) {
         this.inputData = inputData;
@@ -32,10 +33,15 @@ public class Parity {
         return reverseIntArray(encodedData);
     }
 
-    public int[] decode()
+    public int[] decode(int [] encodedData)
     {
-
-        return null;
+        int lengthEncodedData = encodedData.length;
+        int [] revereseEncodedData = reverseIntArray(encodedData);
+        int decodedData[] = new int [lengthEncodedData-lengthEncodedData/8];
+        for (int i=0; i<lengthEncodedData/9; i++)
+            for (int j=0; j<8; j++)
+                decodedData[i*8+j]=revereseEncodedData[i*9+j];
+        return reverseIntArray(decodedData);
     }
 
     public Map<Integer, String> detectErrors(int [] data){
@@ -48,6 +54,7 @@ public class Parity {
                 if(data[i*9+j] == 1) numberOfOne++;
             }
             if (numberOfOne%2 != 0) {
+                errers++;
                 for (int j=8; j>0; j--) detectedBits.put(i*9+j, "uncertainDataBit");
                 detectedBits.put(i*9, "uncertainControlBit");
             } else {
@@ -66,5 +73,9 @@ public class Parity {
             array[array.length - i - 1] = temp;
         }
         return array;
+    }
+
+    public int getErrers() {
+        return errers;
     }
 }

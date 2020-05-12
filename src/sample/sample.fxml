@@ -73,7 +73,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </HBox>
-            <TextArea fx:id="sentEncodeDataArea" prefHeight="150.0" prefWidth="600.0" promptText="Wysłana zakodowana wiadomość" wrapText="true">
+            <TextArea fx:id="sentEncodeDataArea" editable="false" prefHeight="150.0" prefWidth="600.0" promptText="Wysłana zakodowana wiadomość" wrapText="true">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" top="60.0" />
                </VBox.margin>
@@ -103,12 +103,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextArea fx:id="receivedEncodeDataArea" prefHeight="150.0" prefWidth="200.0" promptText="Otrzymana zakodowana wiadomość" wrapText="true">
+            <TextArea fx:id="receivedEncodeDataArea" editable="false" prefHeight="150.0" prefWidth="200.0" promptText="Otrzymana zakodowana wiadomość" wrapText="true">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </TextArea>
-            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showDataWithDetectedErrors" text="Dekoduj">
+            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showResults" text="Dekoduj">
                <VBox.margin>
                   <Insets bottom="8.0" top="8.0" />
                </VBox.margin>
@@ -129,7 +129,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </ScrollPane>
-            <TextArea prefHeight="150.0" prefWidth="200.0" promptText="Dekodowana wiadomość" wrapText="true">
+            <TextArea fx:id="receivedDataArea" editable="false" prefHeight="150.0" prefWidth="200.0" promptText="Dekodowana wiadomość" wrapText="true">
                <VBox.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
