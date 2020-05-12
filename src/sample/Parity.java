@@ -46,6 +46,7 @@ public class Parity {
 
     public Map<Integer, String> detectErrors(int [] data){
         int lenghtEncodedData = data.length;
+        errers = 0;
         for (int i=0; i<lenghtEncodedData/9; i++)
         {
             int numberOfOne = 0;

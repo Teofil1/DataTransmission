@@ -247,31 +247,31 @@
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wysłane bity danych: " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
+                              <Text fx:id="numberOfSentDataBit" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bity kontrolne: " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
+                              <Text fx:id="numberOfControlBit" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wykryte błędy: " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
+                              <Text fx:id="numberOfFoundErrors" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Skorygowane błędy: " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
+                              <Text fx:id="numberOfFixedErrors" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
                            </children>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Niewykryte błędy: " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
+                              <Text fx:id="numberOfUndetectedErrors" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="73.59997862577438" />
                            </children>
                         </HBox>
                      </children>

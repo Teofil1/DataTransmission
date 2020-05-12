@@ -50,6 +50,21 @@ public class Controller implements Initializable {
     Button buttonDecode;
 
     @FXML
+    Text numberOfSentDataBit;
+
+    @FXML
+    Text numberOfControlBit;
+
+    @FXML
+    Text numberOfFoundErrors;
+
+    @FXML
+    Text numberOfFixedErrors;
+
+    @FXML
+    Text numberOfUndetectedErrors;
+
+    @FXML
     Spinner<Integer> disruptSpinner;
 
     Parity parity;
@@ -107,17 +122,45 @@ public class Controller implements Initializable {
             dataWithDetectedErrorsArea.getChildren().clear();
             Map<Integer, String> detectedBits = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             showColoredData(detectedBits);
-            StringBuilder sb = new StringBuilder();
+            StringBuilder detectedData = new StringBuilder();
             for (Node node : dataWithDetectedErrorsArea.getChildren())
                 if (node instanceof Text)
-                    sb.append(((Text) node).getText());
+                    detectedData.append(((Text) node).getText());
 
-            int [] decodedData = parity.decode(stringToIntArray(sb.toString()));
+            int [] decodedData = parity.decode(stringToIntArray(detectedData.toString()));
             receivedDataArea.setText(intArrayToString(decodedData));
+            showStatistics();
         }
     }
 
     private void showStatistics(){
+        StringBuilder detectedData = new StringBuilder();
+        for (Node node : dataWithDetectedErrorsArea.getChildren())
+            if (node instanceof Text)
+                detectedData.append(((Text) node).getText());
+        String encodedData = sentEncodeDataArea.getText();
+
+        int [] detectedDataAsIntArray = stringToIntArray(detectedData.toString());
+        int [] encodedDataAsIntArray = stringToIntArray(encodedData);
+
+        int allErrors = 0;
+
+        for(int i=0; i<encodedData.length(); i++)
+            if(encodedDataAsIntArray[i] != detectedDataAsIntArray[i]) allErrors++;
+
+        if (toggleButtonCRC.isSelected()){
+
+        }
+        else if(toggleButtonHamming.isSelected()){
+
+        }
+        else {
+            numberOfSentDataBit.setText(String.valueOf(encodedData.length()-encodedData.length()/9));
+            numberOfControlBit.setText(String.valueOf(encodedData.length()/9));
+            numberOfFoundErrors.setText(String.valueOf(parity.getErrers()));
+            numberOfFixedErrors.setText("0");
+            numberOfUndetectedErrors.setText(String.valueOf(allErrors-parity.getErrers()));
+        }
 
     }
 
