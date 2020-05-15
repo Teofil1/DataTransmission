@@ -160,9 +160,9 @@ public class Controller implements Initializable {
         else {
             numberOfSentDataBit.setText(String.valueOf(encodedData.length()-encodedData.length()/9));
             numberOfControlBit.setText(String.valueOf(encodedData.length()/9));
-            numberOfFoundErrors.setText(String.valueOf(parity.getErrers()));
+            numberOfFoundErrors.setText(String.valueOf(parity.getErrors()));
             numberOfFixedErrors.setText("0");
-            numberOfUndetectedErrors.setText(String.valueOf(allErrors-parity.getErrers()));
+            numberOfUndetectedErrors.setText(String.valueOf(allErrors-parity.getErrors()));
         }
 
     }
