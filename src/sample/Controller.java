@@ -68,6 +68,7 @@ public class Controller implements Initializable {
     Spinner<Integer> disruptSpinner;
 
     Parity parity;
+    Hamming hamming;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,7 +88,10 @@ public class Controller implements Initializable {
 
             }
             else if(toggleButtonHamming.isSelected()){
-
+                hamming = new Hamming(stringToIntArray(inputDataArea.getText()));
+                int [] encodeData = hamming.encode();
+                sentEncodeDataArea.setText(intArrayToString(encodeData));
+                receivedEncodeDataArea.setText(intArrayToString(encodeData));
             }
             else {
                 parity = new Parity(stringToIntArray(inputDataArea.getText()));

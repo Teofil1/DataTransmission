@@ -35,7 +35,7 @@
                </VBox.margin>
             </TextArea>
             <HBox alignment="CENTER">
-               <ToggleButton fx:id="toggleButtonParity" mnemonicParsing="false" selected="true" text="Kontrola parzystości">
+               <ToggleButton fx:id="toggleButtonParity" mnemonicParsing="false" text="Kontrola parzystości">
                   <toggleGroup>
                      <ToggleGroup fx:id="toggleGroup" />
                   </toggleGroup>
@@ -43,7 +43,7 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </ToggleButton>
-               <ToggleButton fx:id="toggleButtonHamming" mnemonicParsing="false" text="Kodowanie Hamminga" toggleGroup="$toggleGroup">
+               <ToggleButton fx:id="toggleButtonHamming" mnemonicParsing="false" selected="true" text="Kodowanie Hamminga" toggleGroup="$toggleGroup">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
