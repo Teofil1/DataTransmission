@@ -114,7 +114,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void showResults(ActionEvent event) {
+    public void showDecodedData(ActionEvent event) {
         if (toggleButtonCRC.isSelected()){
 
         }
@@ -132,8 +132,8 @@ public class Controller implements Initializable {
 
             int [] decodedData = parity.decode(stringToIntArray(detectedData.toString()));
             receivedDataArea.setText(intArrayToString(decodedData));
-            showStatistics();
         }
+        showStatistics();
     }
 
     private void showStatistics(){
