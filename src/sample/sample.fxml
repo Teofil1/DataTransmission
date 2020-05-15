@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">
          <children>
@@ -140,7 +140,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="600.0">
                            <children>
-                              <Circle fill="GREEN" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#12af12" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -154,7 +154,7 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="600.0">
                            <children>
-                              <Circle fill="RED" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#fd6868" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -166,12 +166,12 @@
                               </Text>
                            </children>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="2.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
                            <children>
-                              <Circle fill="ORANGE" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#ffbf58" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -180,15 +180,35 @@
                                  <font>
                                     <Font size="10.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
                               </Text>
                            </children>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="2.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
                            <children>
-                              <Circle fill="#20a0c7" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#388fa6" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                                 <HBox.margin>
+                                    <Insets top="2.0" />
+                                 </HBox.margin>
+                              </Circle>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" - Naprawiony bit danych">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
+                           <children>
+                              <Circle fill="#0b5f0b" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -200,12 +220,12 @@
                               </Text>
                            </children>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="2.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
                            <children>
-                              <Circle fill="#710909" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#bd1010" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -217,12 +237,12 @@
                               </Text>
                            </children>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="2.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
                            <children>
-                              <Circle fill="YELLOW" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                              <Circle fill="#b58105" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                                  <HBox.margin>
                                     <Insets top="2.0" />
                                  </HBox.margin>
@@ -234,7 +254,27 @@
                               </Text>
                            </children>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="2.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="12.0" prefWidth="200.0">
+                           <children>
+                              <Circle fill="#0d355c" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                                 <HBox.margin>
+                                    <Insets top="2.0" />
+                                 </HBox.margin>
+                              </Circle>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" - Naprawiony bit kontrolny">
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="2.0" />
                            </VBox.margin>
                         </HBox>
                      </children>

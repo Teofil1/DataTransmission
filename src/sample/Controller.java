@@ -174,12 +174,14 @@ public class Controller implements Initializable {
                 if(i == entry.getKey()) {
                     String color= "#000000";
                     switch (entry.getValue()){
-                        case "correctDataBit": color = "#008000"; break;
-                        case "wrongDataBit": color = "#FF0000"; break;
-                        case "uncertainDataBit": color = "#FFA500"; break;
-                        case "correctControlBit": color = "#20A0C7"; break;
-                        case "wrongControlBit": color = "#710909"; break;
-                        case "uncertainControlBit": color = "#FFFF00"; break;
+                        case "correctDataBit": color = "#12af12"; break;
+                        case "wrongDataBit": color = "#fd6868"; break;
+                        case "uncertainDataBit": color = "#ffbf58"; break;
+                        case "fixedDataBit": color = "#388fa6"; break;
+                        case "correctControlBit": color = "#0b5f0b"; break;
+                        case "wrongControlBit": color = "#bd1010"; break;
+                        case "uncertainControlBit": color = "#b58105"; break;
+                        case "fixedControlBit": color = "#0d355c"; break;
                     }
                     Text singleBit = new Text();
                     singleBit.setText(String.valueOf(detectedData.charAt(i)));

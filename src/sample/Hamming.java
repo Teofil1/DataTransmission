@@ -7,7 +7,7 @@ public class Hamming {
 
     private int inputData[];
     private Map<Integer, String> detectedBits = new HashMap<>();
-    private int errers = 0;
+    private int errors = 0;
 
     public Hamming(int[] inputData) {
         this.inputData = inputData;
@@ -66,6 +66,29 @@ public class Hamming {
             }
         }
         return controlBit;
+    }
+
+
+    public Map<Integer, String> detectErrors(int [] data){
+        int lenghtEncodedData = data.length;
+        errors = 0;
+        for (int i=0; i<lenghtEncodedData/9; i++)
+        {
+            int numberOfOne = 0;
+            for (int j=0; j<9; j++)
+            {
+                if(data[i*9+j] == 1) numberOfOne++;
+            }
+            if (numberOfOne%2 != 0) {
+                errors++;
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "uncertainDataBit");
+                detectedBits.put(i*9, "uncertainControlBit");
+            } else {
+                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "correctDataBit");
+                detectedBits.put(i*9, "correctControlBit");
+            }
+        }
+        return detectedBits;
     }
 
 
