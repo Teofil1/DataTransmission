@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ public class Parity {
 
     private int inputData[];
     private Map<Integer, String> detectedBits = new HashMap<>();
-    private int errors = 0;
+    private int numberOfErrors = 0;
 
     public Parity(int[] inputData) {
         this.inputData = inputData;
@@ -46,7 +47,7 @@ public class Parity {
 
     public int[] detectErrors(int [] data){
         int lenghtEncodedData = data.length;
-        errors = 0;
+        numberOfErrors = 0;
         for (int i=0; i<lenghtEncodedData/9; i++)
         {
             int numberOfOne = 0;
@@ -55,7 +56,7 @@ public class Parity {
                 if(data[i*9+j] == 1) numberOfOne++;
             }
             if (numberOfOne%2 != 0) {
-                errors++;
+                numberOfErrors++;
                 for (int j=8; j>0; j--) detectedBits.put(i*9+j, "uncertainDataBit");
                 detectedBits.put(i*9, "uncertainControlBit");
             } else {
@@ -67,17 +68,18 @@ public class Parity {
     }
 
     private int[] reverseIntArray(int array[]){
-        for(int i = 0; i < array.length / 2; i++)
+        int[] copyArray = Arrays.copyOf(array, array.length);
+        for(int i = 0; i < copyArray.length / 2; i++)
         {
-            int temp = array[i];
-            array[i] = array[array.length - i - 1];
-            array[array.length - i - 1] = temp;
+            int temp = copyArray[i];
+            copyArray[i] = copyArray[copyArray.length - i - 1];
+            copyArray[copyArray.length - i - 1] = temp;
         }
-        return array;
+        return copyArray;
     }
 
-    public int getErrors() {
-        return errors;
+    public int getNumberOfErrors() {
+        return numberOfErrors;
     }
 
     public Map<Integer, String> getDetectedBits() {

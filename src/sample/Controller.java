@@ -3,11 +3,11 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
 import java.util.*;
@@ -115,62 +115,61 @@ public class Controller implements Initializable {
 
     @FXML
     public void showDecodedData(ActionEvent event) {
+        dataWithDetectedErrorsArea.getChildren().clear();
+
         if (toggleButtonCRC.isSelected()){
 
         }
         else if(toggleButtonHamming.isSelected()){
-            dataWithDetectedErrorsArea.getChildren().clear();
             int [] detectedData = hamming.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             showColoredData(hamming.getDetectedBits(), detectedData);
+            int [] decodedData = hamming.decode(detectedData);
+            receivedDataArea.setText(intArrayToString(decodedData));
+
+            showStatistics(stringToIntArray(receivedEncodeDataArea.getText()),
+                           stringToIntArray(sentEncodeDataArea.getText()),
+                           stringToIntArray(inputDataArea.getText()));
         }
         else {
-            dataWithDetectedErrorsArea.getChildren().clear();
             int [] detectedData = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             showColoredData(parity.getDetectedBits(), detectedData);
-
-            int [] decodedData = parity.decode(getTextFromDetectedErrorsArea());
+            int [] decodedData = parity.decode(detectedData);
             receivedDataArea.setText(intArrayToString(decodedData));
-            showStatistics();
+
+            showStatistics(stringToIntArray(receivedEncodeDataArea.getText()),
+                    stringToIntArray(sentEncodeDataArea.getText()),
+                    stringToIntArray(inputDataArea.getText()));
         }
     }
 
-    private int[] getTextFromDetectedErrorsArea(){
+    /*private int[] getTextFromDetectedErrorsArea(){
         StringBuilder detectedData = new StringBuilder();
         for (Node node : dataWithDetectedErrorsArea.getChildren())
             if (node instanceof Text)
                 detectedData.append(((Text) node).getText());
         return stringToIntArray(detectedData.toString());
-    }
+    }*/
 
 
 
-    private void showStatistics(){
-        StringBuilder detectedData = new StringBuilder();
-        for (Node node : dataWithDetectedErrorsArea.getChildren())
-            if (node instanceof Text)
-                detectedData.append(((Text) node).getText());
-        String encodedData = sentEncodeDataArea.getText();
-
-        int [] detectedDataAsIntArray = stringToIntArray(detectedData.toString());
-        int [] encodedDataAsIntArray = stringToIntArray(encodedData);
-
-        int allErrors = 0;
-
-        for(int i=0; i<encodedData.length(); i++)
-            if(encodedDataAsIntArray[i] != detectedDataAsIntArray[i]) allErrors++;
-
+    private void showStatistics(int [] receivedEncodeData, int [] sentEncodeData, int [] inputData){
+        int numberOfAllErrors = 0;
+        numberOfSentDataBit.setText(String.valueOf(receivedEncodeData.length-(receivedEncodeData.length-inputData.length)));
+        numberOfControlBit.setText(String.valueOf(receivedEncodeData.length-inputData.length));
+        for(int i=0; i<sentEncodeData.length; i++)
+            if(sentEncodeData[i] != receivedEncodeData[i]) numberOfAllErrors++;
         if (toggleButtonCRC.isSelected()){
 
         }
         else if(toggleButtonHamming.isSelected()){
-
+            numberOfFoundErrors.setText(String.valueOf(hamming.getNumberOfErrors()));
+            numberOfFixedErrors.setText(String.valueOf(hamming.getNumberOfFixedBit()));
+            numberOfUndetectedErrors.setText(String.valueOf(numberOfAllErrors-hamming.getNumberOfErrors()));
         }
         else {
-            numberOfSentDataBit.setText(String.valueOf(encodedData.length()-encodedData.length()/9));
-            numberOfControlBit.setText(String.valueOf(encodedData.length()/9));
-            numberOfFoundErrors.setText(String.valueOf(parity.getErrors()));
+            numberOfFoundErrors.setText(String.valueOf(parity.getNumberOfErrors()));
             numberOfFixedErrors.setText("0");
-            numberOfUndetectedErrors.setText(String.valueOf(allErrors-parity.getErrors()));
+            numberOfUndetectedErrors.setText(String.valueOf(numberOfAllErrors-parity.getNumberOfErrors()));
         }
 
     }
@@ -247,10 +246,10 @@ public class Controller implements Initializable {
         alert.showAndWait();
     }
 
-    public int[] disruptData(int[] datas, int numberOfDisraptedBits){
-        int[] disruptedData = Arrays.copyOf(datas, datas.length);
+    public int[] disruptData(int[] data, int numberOfDisraptedBits){
+        int[] disruptedData = Arrays.copyOf(data, data.length);
         Random rand = new Random();
-        List<Integer> listWithAllIndexesOfdata = IntStream.rangeClosed(0, datas.length-1).boxed().collect(Collectors.toList());
+        List<Integer> listWithAllIndexesOfdata = IntStream.rangeClosed(0, data.length-1).boxed().collect(Collectors.toList());
         List<Integer> indexesOfDisraptedBits = new ArrayList<>();
 
         for (int i=0; i<numberOfDisraptedBits; i++){

@@ -7,7 +7,8 @@ public class Hamming {
 
     private int inputData[];
     private Map<Integer, String> detectedBits = new HashMap<>();
-    private int errors = 0;
+    private int numberOfErrors = 0;
+    private int numberOfFixedBit = 0;
 
     public Hamming(int[] inputData) {
         this.inputData = inputData;
@@ -69,7 +70,8 @@ public class Hamming {
 
 
     public int [] detectErrors(int [] data){
-        errors = 0;
+        numberOfErrors=0;
+        numberOfFixedBit=0;
         int indexOfWrongBit=0;
         for (int i=data.length-1; i>=0; i--){
             if(log2(i+1) == Math.floor(log2(i+1))){
@@ -80,7 +82,8 @@ public class Hamming {
         }
         indexOfWrongBit--;
         if(indexOfWrongBit!=-1) {
-            errors++;
+            numberOfErrors++;
+            numberOfFixedBit++;
             if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
             else data[indexOfWrongBit]=0;
             if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
@@ -89,6 +92,20 @@ public class Hamming {
         return data;
     }
 
+    public int[] decode(int [] data)
+    {
+        int numberOfControlsBits=0;
+        for (int i=0; Math.pow(2, i)<=data.length; i++) numberOfControlsBits++;
+        int decodedData[] = new int[data.length-numberOfControlsBits];
+        int j=0;
+        for (int i=0; i<data.length; i++){
+            if(log2(i+1) != Math.floor(log2(i+1))){
+                decodedData[j]=data[i];
+                j++;
+            }
+        }
+        return decodedData;
+    }
 
 
     private double log2(double d) {
@@ -99,7 +116,11 @@ public class Hamming {
         return detectedBits;
     }
 
-    public int getErrors() {
-        return errors;
+    public int getNumberOfErrors() {
+        return numberOfErrors;
+    }
+
+    public int getNumberOfFixedBit() {
+        return numberOfFixedBit;
     }
 }
