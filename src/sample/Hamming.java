@@ -81,7 +81,6 @@ public class Hamming {
         indexOfWrongBit--;
         if(indexOfWrongBit!=-1) {
             errors++;
-            System.out.println(data[indexOfWrongBit]);
             if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
             else data[indexOfWrongBit]=0;
             if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
