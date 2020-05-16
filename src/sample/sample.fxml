@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" style="-fx-background-color: #e1ede7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">
          <children>
@@ -35,7 +35,7 @@
                </VBox.margin>
             </TextArea>
             <HBox alignment="CENTER">
-               <ToggleButton fx:id="toggleButtonParity" mnemonicParsing="false" text="Kontrola parzystości">
+               <ToggleButton fx:id="toggleButtonParity" mnemonicParsing="false" selected="true" style="-fx-background-color: #6579e0;" text="Kontrola parzystości" textFill="WHITE">
                   <toggleGroup>
                      <ToggleGroup fx:id="toggleGroup" />
                   </toggleGroup>
@@ -43,13 +43,13 @@
                      <Insets right="5.0" />
                   </HBox.margin>
                </ToggleButton>
-               <ToggleButton fx:id="toggleButtonHamming" mnemonicParsing="false" selected="true" text="Kodowanie Hamminga" toggleGroup="$toggleGroup">
+               <ToggleButton fx:id="toggleButtonHamming" mnemonicParsing="false" style="-fx-background-color: #6579e0;" text="Kodowanie Hamminga" textFill="WHITE" toggleGroup="$toggleGroup">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
                </ToggleButton>
-               <ToggleButton fx:id="toggleButtonCRC" text="CRC" toggleGroup="$toggleGroup" />
-               <Button mnemonicParsing="false" onAction="#showEncodedData" text="Koduj">
+               <ToggleButton fx:id="toggleButtonCRC" style="-fx-background-color: #6579e0;" text="CRC" textFill="WHITE" toggleGroup="$toggleGroup" />
+               <Button mnemonicParsing="false" onAction="#showEncodedData" style="-fx-background-color: #34a747;" text="Koduj" textFill="WHITE">
                   <HBox.margin>
                      <Insets left="20.0" />
                   </HBox.margin>
@@ -85,7 +85,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Spinner>
-                  <Button fx:id="buttonDisrupt" disable="true" mnemonicParsing="false" onAction="#showDisruptData" text="Zakłóć" />
+                  <Button fx:id="buttonDisrupt" disable="true" mnemonicParsing="false" onAction="#showDisruptData" style="-fx-background-color: #ff7000;" text="Zakłóć" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
@@ -108,7 +108,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </TextArea>
-            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showDecodedData" text="Dekoduj">
+            <Button fx:id="buttonDecode" disable="true" mnemonicParsing="false" onAction="#showDecodedData" style="-fx-background-color: #34a747;" text="Dekoduj" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="8.0" top="8.0" />
                </VBox.margin>

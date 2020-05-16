@@ -99,12 +99,12 @@ public class Controller implements Initializable {
                 sentEncodeDataArea.setText(intArrayToString(encodeData));
                 receivedEncodeDataArea.setText(intArrayToString(encodeData));
             }
+            SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,sentEncodeDataArea.getText().length(),0);
+            disruptSpinner.setValueFactory(spv);
+            disruptSpinner.setDisable(false);
+            buttonDecode.setDisable(false);
+            buttonDisrupt.setDisable(false);
         }
-        SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,sentEncodeDataArea.getText().length(),0);
-        disruptSpinner.setValueFactory(spv);
-        disruptSpinner.setDisable(false);
-        buttonDecode.setDisable(false);
-        buttonDisrupt.setDisable(false);
     }
 
     @FXML
