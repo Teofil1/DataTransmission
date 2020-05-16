@@ -44,7 +44,7 @@ public class Parity {
         return reverseIntArray(decodedData);
     }
 
-    public Map<Integer, String> detectErrors(int [] data){
+    public int[] detectErrors(int [] data){
         int lenghtEncodedData = data.length;
         errors = 0;
         for (int i=0; i<lenghtEncodedData/9; i++)
@@ -63,7 +63,7 @@ public class Parity {
                 detectedBits.put(i*9, "correctControlBit");
             }
         }
-        return detectedBits;
+        return data;
     }
 
     private int[] reverseIntArray(int array[]){
@@ -78,5 +78,9 @@ public class Parity {
 
     public int getErrors() {
         return errors;
+    }
+
+    public Map<Integer, String> getDetectedBits() {
+        return detectedBits;
     }
 }

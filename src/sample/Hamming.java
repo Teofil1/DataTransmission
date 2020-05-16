@@ -61,7 +61,6 @@ public class Hamming {
                         j++;
                     }
                 }
-                System.out.println();
                 i=j+index+1;
             }
         }
@@ -69,31 +68,39 @@ public class Hamming {
     }
 
 
-    public Map<Integer, String> detectErrors(int [] data){
-        int lenghtEncodedData = data.length;
+    public int [] detectErrors(int [] data){
         errors = 0;
-        for (int i=0; i<lenghtEncodedData/9; i++)
-        {
-            int numberOfOne = 0;
-            for (int j=0; j<9; j++)
-            {
-                if(data[i*9+j] == 1) numberOfOne++;
+        int indexOfWrongBit=0;
+        for (int i=data.length-1; i>=0; i--){
+            if(log2(i+1) == Math.floor(log2(i+1))){
+                detectedBits.put(i, "correctControlBit");
+                if(data[i]!=setControlBit(i,data)) indexOfWrongBit+=i+1;
             }
-            if (numberOfOne%2 != 0) {
-                errors++;
-                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "uncertainDataBit");
-                detectedBits.put(i*9, "uncertainControlBit");
-            } else {
-                for (int j=8; j>0; j--) detectedBits.put(i*9+j, "correctDataBit");
-                detectedBits.put(i*9, "correctControlBit");
-            }
+            else detectedBits.put(i, "correctDataBit");
         }
-        return detectedBits;
+        indexOfWrongBit--;
+        if(indexOfWrongBit!=-1) {
+            errors++;
+            System.out.println(data[indexOfWrongBit]);
+            if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
+            else data[indexOfWrongBit]=0;
+            if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
+            else detectedBits.put(indexOfWrongBit, "fixedDataBit");
+        }
+        return data;
     }
 
 
 
     private double log2(double d) {
         return Math.log(d)/Math.log(2.0);
+    }
+
+    public Map<Integer, String> getDetectedBits() {
+        return detectedBits;
+    }
+
+    public int getErrors() {
+        return errors;
     }
 }

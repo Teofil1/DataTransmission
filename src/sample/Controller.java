@@ -119,22 +119,30 @@ public class Controller implements Initializable {
 
         }
         else if(toggleButtonHamming.isSelected()){
-
+            dataWithDetectedErrorsArea.getChildren().clear();
+            int [] detectedData = hamming.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
+            showColoredData(hamming.getDetectedBits(), detectedData);
         }
         else {
             dataWithDetectedErrorsArea.getChildren().clear();
-            Map<Integer, String> detectedBits = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
-            showColoredData(detectedBits);
-            StringBuilder detectedData = new StringBuilder();
-            for (Node node : dataWithDetectedErrorsArea.getChildren())
-                if (node instanceof Text)
-                    detectedData.append(((Text) node).getText());
+            int [] detectedData = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
+            showColoredData(parity.getDetectedBits(), detectedData);
 
-            int [] decodedData = parity.decode(stringToIntArray(detectedData.toString()));
+            int [] decodedData = parity.decode(getTextFromDetectedErrorsArea());
             receivedDataArea.setText(intArrayToString(decodedData));
+            showStatistics();
         }
-        showStatistics();
     }
+
+    private int[] getTextFromDetectedErrorsArea(){
+        StringBuilder detectedData = new StringBuilder();
+        for (Node node : dataWithDetectedErrorsArea.getChildren())
+            if (node instanceof Text)
+                detectedData.append(((Text) node).getText());
+        return stringToIntArray(detectedData.toString());
+    }
+
+
 
     private void showStatistics(){
         StringBuilder detectedData = new StringBuilder();
@@ -167,8 +175,8 @@ public class Controller implements Initializable {
 
     }
 
-    private void showColoredData(Map<Integer, String> detectedBits){
-        String detectedData = receivedEncodeDataArea.getText();
+    private void showColoredData(Map<Integer, String> detectedBits, int [] data){
+        String detectedData = intArrayToString(data);
         for(int i=0; i<detectedData.length(); i++){
             for (Map.Entry<Integer, String> entry : detectedBits.entrySet()) {
                 if(i == entry.getKey()) {
