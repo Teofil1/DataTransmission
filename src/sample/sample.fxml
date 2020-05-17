@@ -60,14 +60,23 @@
             </HBox>
             <HBox fx:id="radioGroupWithKeys" alignment="CENTER" disable="true">
                <children>
-                  <RadioButton mnemonicParsing="false" selected="true" text="key1">
+                  <RadioButton fx:id="crc12RadioButton" mnemonicParsing="false" selected="true" text="CRC-12">
                      <toggleGroup>
                         <ToggleGroup fx:id="radioGroup" />
                      </toggleGroup>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="key2" toggleGroup="$radioGroup" />
-                  <RadioButton mnemonicParsing="false" text="key3" toggleGroup="$radioGroup" />
-                  <RadioButton mnemonicParsing="false" text="key4" toggleGroup="$radioGroup" />
+                  <RadioButton fx:id="crc16RadioButton" mnemonicParsing="false" text="CRC-16" toggleGroup="$radioGroup">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin></RadioButton>
+                  <RadioButton fx:id="sdlcRadioButton" mnemonicParsing="false" text="SDLC" toggleGroup="$radioGroup">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin></RadioButton>
+                  <RadioButton fx:id="atmRadioButton" mnemonicParsing="false" text="ATM" toggleGroup="$radioGroup" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />

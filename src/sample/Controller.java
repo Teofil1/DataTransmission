@@ -7,8 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import org.w3c.dom.ls.LSOutput;
-
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,6 +40,18 @@ public class Controller implements Initializable {
 
     @FXML
     ToggleButton toggleButtonCRC;
+
+    @FXML
+    RadioButton crc12RadioButton;
+
+    @FXML
+    RadioButton crc16RadioButton;
+
+    @FXML
+    RadioButton sdlcRadioButton;
+
+    @FXML
+    RadioButton atmRadioButton;
 
     @FXML
     Button buttonDisrupt;
@@ -85,7 +95,13 @@ public class Controller implements Initializable {
     public void showEncodedData(ActionEvent event) {
         if(validationOfInputData()){
             if (toggleButtonCRC.isSelected()){
+                String key;
+                if(crc12RadioButton.isSelected()) key="1100000001111";
+                else if(crc16RadioButton.isSelected()) key="11000000000000101";
+                else if(sdlcRadioButton.isSelected()) key="10001000000100001";
+                else key="100000111";
 
+                CRC crc = new CRC(stringToIntArray(inputDataArea.getText()), stringToIntArray(key));
             }
             else if(toggleButtonHamming.isSelected()){
                 hamming = new Hamming(stringToIntArray(inputDataArea.getText()));
