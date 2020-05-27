@@ -79,6 +79,7 @@ public class Controller implements Initializable {
 
     Parity parity;
     Hamming hamming;
+    CRC crc;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -94,6 +95,7 @@ public class Controller implements Initializable {
     @FXML
     public void showEncodedData(ActionEvent event) {
         if(validationOfInputData()){
+            int [] encodeData;
             if (toggleButtonCRC.isSelected()){
                 String key;
                 if(crc12RadioButton.isSelected()) key="1100000001111";
@@ -101,20 +103,19 @@ public class Controller implements Initializable {
                 else if(sdlcRadioButton.isSelected()) key="10001000000100001";
                 else key="100000111";
 
-                CRC crc = new CRC(stringToIntArray(inputDataArea.getText()), stringToIntArray(key));
+                crc = new CRC(stringToIntArray(inputDataArea.getText()), stringToIntArray(key));
+                encodeData = crc.encode();
             }
             else if(toggleButtonHamming.isSelected()){
                 hamming = new Hamming(stringToIntArray(inputDataArea.getText()));
-                int [] encodeData = hamming.encode();
-                sentEncodeDataArea.setText(intArrayToString(encodeData));
-                receivedEncodeDataArea.setText(intArrayToString(encodeData));
+                encodeData = hamming.encode();
             }
             else {
                 parity = new Parity(stringToIntArray(inputDataArea.getText()));
-                int [] encodeData = parity.encode();
-                sentEncodeDataArea.setText(intArrayToString(encodeData));
-                receivedEncodeDataArea.setText(intArrayToString(encodeData));
+                encodeData = parity.encode();
             }
+            sentEncodeDataArea.setText(intArrayToString(encodeData));
+            receivedEncodeDataArea.setText(intArrayToString(encodeData));
             SpinnerValueFactory<Integer> spv = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,sentEncodeDataArea.getText().length(),0);
             disruptSpinner.setValueFactory(spv);
             disruptSpinner.setDisable(false);
@@ -132,30 +133,27 @@ public class Controller implements Initializable {
     @FXML
     public void showDecodedData(ActionEvent event) {
         dataWithDetectedErrorsArea.getChildren().clear();
-
         if (toggleButtonCRC.isSelected()){
-
+            int [] detectedData = crc.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
+            showColoredData(crc.getDetectedBits(), detectedData);
+            int [] decodedData = crc.decode(detectedData);
+            receivedDataArea.setText(intArrayToString(decodedData));
         }
         else if(toggleButtonHamming.isSelected()){
             int [] detectedData = hamming.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             showColoredData(hamming.getDetectedBits(), detectedData);
             int [] decodedData = hamming.decode(detectedData);
             receivedDataArea.setText(intArrayToString(decodedData));
-
-            showStatistics(stringToIntArray(receivedEncodeDataArea.getText()),
-                           stringToIntArray(sentEncodeDataArea.getText()),
-                           stringToIntArray(inputDataArea.getText()));
         }
         else {
             int [] detectedData = parity.detectErrors(stringToIntArray(receivedEncodeDataArea.getText()));
             showColoredData(parity.getDetectedBits(), detectedData);
             int [] decodedData = parity.decode(detectedData);
             receivedDataArea.setText(intArrayToString(decodedData));
-
-            showStatistics(stringToIntArray(receivedEncodeDataArea.getText()),
-                    stringToIntArray(sentEncodeDataArea.getText()),
-                    stringToIntArray(inputDataArea.getText()));
         }
+        showStatistics(stringToIntArray(receivedEncodeDataArea.getText()),
+                stringToIntArray(sentEncodeDataArea.getText()),
+                stringToIntArray(inputDataArea.getText()));
     }
 
     /*private int[] getTextFromDetectedErrorsArea(){
@@ -175,7 +173,9 @@ public class Controller implements Initializable {
         for(int i=0; i<sentEncodeData.length; i++)
             if(sentEncodeData[i] != receivedEncodeData[i]) numberOfAllErrors++;
         if (toggleButtonCRC.isSelected()){
-
+            numberOfFoundErrors.setText(String.valueOf(crc.getNumberOfErrors()));
+            numberOfFixedErrors.setText("0");
+            numberOfUndetectedErrors.setText(String.valueOf(numberOfAllErrors-crc.getNumberOfErrors()));
         }
         else if(toggleButtonHamming.isSelected()){
             numberOfFoundErrors.setText(String.valueOf(hamming.getNumberOfErrors()));

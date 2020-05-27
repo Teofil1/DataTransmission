@@ -46,9 +46,8 @@ public class Parity {
     }
 
     public int[] detectErrors(int [] data){
-        int lenghtEncodedData = data.length;
         numberOfErrors = 0;
-        for (int i=0; i<lenghtEncodedData/9; i++)
+        for (int i=0; i<data.length/9; i++)
         {
             int numberOfOne = 0;
             for (int j=0; j<9; j++)
