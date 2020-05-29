@@ -29,9 +29,22 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Label>
+            <HBox alignment="TOP_CENTER" prefHeight="14.0" prefWidth="500.0">
+               <children>
+                  <Spinner fx:id="generateSpinner" prefHeight="26.0" prefWidth="79.0">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Spinner>
+                  <Button fx:id="buttonGenerateInputData" mnemonicParsing="false" onAction="#generateInputData" style="-fx-background-color: #ff7000;" text="Wygeneruj" textFill="WHITE" />
+               </children>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </HBox>
             <TextArea fx:id="inputDataArea" prefHeight="150.0" prefWidth="600.0" promptText="Wyślij wiadomość" wrapText="true">
                <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="50.0" />
+                  <Insets left="5.0" right="5.0" top="10.0" />
                </VBox.margin>
             </TextArea>
             <HBox alignment="CENTER">
@@ -100,6 +113,11 @@
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </HBox>
+            <Button mnemonicParsing="false" onAction="#clearAll" prefHeight="33.0" prefWidth="134.0" style="-fx-background-color: red;" text="Wyczyść wszystko" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">
