@@ -171,13 +171,6 @@ public class Controller implements Initializable {
         }
     }
 
-    /*private int[] getTextFromDetectedErrorsArea(){
-        StringBuilder detectedData = new StringBuilder();
-        for (Node node : dataWithDetectedErrorsArea.getChildren())
-            if (node instanceof Text)
-                detectedData.append(((Text) node).getText());
-        return stringToIntArray(detectedData.toString());
-    }*/
 
     @FXML
     public void clearAll(ActionEvent event) {
