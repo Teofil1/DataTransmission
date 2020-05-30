@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,32 +16,28 @@ public class Parity {
     public int[] encode()
     {
         int lengthInputData = inputData.length;
-        int [] revereseInputData = reverseIntArray(inputData);
         int encodedData[] = new int [lengthInputData+lengthInputData/8];
         for (int i=0; i<lengthInputData/8; i++)
         {
             int numberOfOne = 0;
-            for (int j=0; j<8; j++)
+            for (int j=1; j<9; j++)
             {
-                encodedData[i*9+j]=revereseInputData[i*8+j];
-                if(inputData[i*8+j] == 1) numberOfOne++;
+                encodedData[i*9+j]=inputData[i*8+j-1];
+                if(inputData[i*8+j-1] == 1) numberOfOne++;
             }
-            if (numberOfOne%2 != 0) encodedData[8+i*9]=1;
-            else encodedData[8+i*9]=0;
+            if (numberOfOne%2 != 0) encodedData[i*9]=1;
+            else encodedData[i*9]=0;
         }
-
-        return reverseIntArray(encodedData);
+        return encodedData;
     }
 
     public int[] decode(int [] encodedData)
     {
-        int lengthEncodedData = encodedData.length;
-        int [] revereseEncodedData = reverseIntArray(encodedData);
-        int decodedData[] = new int [lengthEncodedData-lengthEncodedData/8];
-        for (int i=0; i<lengthEncodedData/9; i++)
+        int decodedData[] = new int [encodedData.length-encodedData.length/8];
+        for (int i=0; i<encodedData.length/9; i++)
             for (int j=0; j<8; j++)
-                decodedData[i*8+j]=revereseEncodedData[i*9+j];
-        return reverseIntArray(decodedData);
+                decodedData[i*8+j]=encodedData[i*9+j+1];
+        return decodedData;
     }
 
     public int[] detectErrors(int [] data){
@@ -64,17 +59,6 @@ public class Parity {
             }
         }
         return data;
-    }
-
-    private int[] reverseIntArray(int array[]){
-        int[] copyArray = Arrays.copyOf(array, array.length);
-        for(int i = 0; i < copyArray.length / 2; i++)
-        {
-            int temp = copyArray[i];
-            copyArray[i] = copyArray[copyArray.length - i - 1];
-            copyArray[copyArray.length - i - 1] = temp;
-        }
-        return copyArray;
     }
 
     public int getNumberOfErrors() {

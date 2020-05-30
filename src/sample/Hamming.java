@@ -16,11 +16,11 @@ public class Hamming {
 
     int[] encode()
     {
-        int numberOfControlsBits=0;
+        int numberOfControlsBits = 0;
         for (int i=0; Math.pow(2, i)<=inputData.length; i++) numberOfControlsBits++;
         int encodedData[] = new int[inputData.length+numberOfControlsBits];
         encodedData[0] = 2;
-        encodedData[1]= 2;
+        encodedData[1] = 2;
         int i=0, j=2;
         while (j<encodedData.length) {
             if(log2(j+1) == Math.floor(log2(j+1))) encodedData[j]=2;
@@ -72,22 +72,28 @@ public class Hamming {
     public int [] detectErrors(int [] data){
         numberOfErrors=0;
         numberOfFixedBit=0;
-        int indexOfWrongBit=0;
+        int indexOfWrongBit=-1;
         for (int i=data.length-1; i>=0; i--){
             if(log2(i+1) == Math.floor(log2(i+1))){
+                System.out.println(i+1);
                 detectedBits.put(i, "correctControlBit");
-                if(data[i]!=setControlBit(i,data)) indexOfWrongBit+=i+1;
+                if(data[i]!=setControlBit(i,data)) {
+                    if(indexOfWrongBit == -1) indexOfWrongBit = 0;
+                    indexOfWrongBit+=i+1;
+                }
             }
             else detectedBits.put(i, "correctDataBit");
         }
-        indexOfWrongBit--;
         if(indexOfWrongBit!=-1) {
+            indexOfWrongBit--;
             numberOfErrors++;
-            numberOfFixedBit++;
-            if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
-            else data[indexOfWrongBit]=0;
-            if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
-            else detectedBits.put(indexOfWrongBit, "fixedDataBit");
+            if(indexOfWrongBit<data.length){
+                numberOfFixedBit++;
+                if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
+                else data[indexOfWrongBit]=0;
+                if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
+                else detectedBits.put(indexOfWrongBit, "fixedDataBit");
+            }
         }
         return data;
     }
