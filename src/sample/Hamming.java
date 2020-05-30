@@ -41,9 +41,7 @@ public class Hamming {
         int controlBit;
         if(index==0){
             controlBit = data[index+2];
-            for(int i=index+4; i<data.length; i+=2){
-                controlBit^=data[i];
-            }
+            for(int i=index+4; i<data.length; i+=2) controlBit^=data[i];
         }
         else {
             controlBit = data[index+1];
@@ -75,7 +73,6 @@ public class Hamming {
         int indexOfWrongBit=-1;
         for (int i=data.length-1; i>=0; i--){
             if(log2(i+1) == Math.floor(log2(i+1))){
-                System.out.println(i+1);
                 detectedBits.put(i, "correctControlBit");
                 if(data[i]!=setControlBit(i,data)) {
                     if(indexOfWrongBit == -1) indexOfWrongBit = 0;
@@ -91,7 +88,8 @@ public class Hamming {
                 numberOfFixedBit++;
                 if(data[indexOfWrongBit]==0)data[indexOfWrongBit]=1;
                 else data[indexOfWrongBit]=0;
-                if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1))) detectedBits.put(indexOfWrongBit, "fixedControlBit");
+                if(log2(indexOfWrongBit+1) == Math.floor(log2(indexOfWrongBit+1)))
+                    detectedBits.put(indexOfWrongBit, "fixedControlBit");
                 else detectedBits.put(indexOfWrongBit, "fixedDataBit");
             }
         }
