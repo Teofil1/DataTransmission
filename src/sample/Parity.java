@@ -15,9 +15,8 @@ public class Parity {
 
     public int[] encode()
     {
-        int lengthInputData = inputData.length;
-        int encodedData[] = new int [lengthInputData+lengthInputData/8];
-        for (int i=0; i<lengthInputData/8; i++)
+        int encodedData[] = new int [inputData.length+inputData.length/8];
+        for (int i=0; i<inputData.length/8; i++)
         {
             int numberOfOne = 0;
             for (int j=1; j<9; j++)

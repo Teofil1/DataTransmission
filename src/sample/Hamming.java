@@ -19,12 +19,9 @@ public class Hamming {
         int numberOfControlsBits = 0;
         for (int i=0; Math.pow(2, i)<=inputData.length; i++) numberOfControlsBits++;
         int encodedData[] = new int[inputData.length+numberOfControlsBits];
-        encodedData[0] = 2;
-        encodedData[1] = 2;
         int i=0, j=2;
         while (j<encodedData.length) {
-            if(log2(j+1) == Math.floor(log2(j+1))) encodedData[j]=2;
-            else{
+            if(log2(j+1) != Math.floor(log2(j+1))) {
                 encodedData[j]=inputData[i];
                 i++;
             }
